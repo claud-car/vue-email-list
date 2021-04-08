@@ -11,6 +11,7 @@ var app = new Vue ({
     email: []
   },
   mounted: function () {
+    //comando che carica la prima volta,senza uso del button,il documento non appena sono pronte le e-mail
     this.$nextTick(function () {
       for (var i = 0; i < 10; i++) {
         axios.get('https://flynn.boolean.careers/exercises/api/random/mail')
@@ -22,13 +23,18 @@ var app = new Vue ({
     })
   },
   methods: {
+    //funzione per randomizzare le mail quando si preme il button
     emailRand: function () {
+      //ciclo per creare le mail
       for (var i = 0; i < 10; i++) {
         axios.get('https://flynn.boolean.careers/exercises/api/random/mail')
         .then((response) => {
+          //salvo le mail in una bariabile
           let emailgen = response.data.response;
+          //pusho l'array in email
           this.email.push(emailgen);
         });
+        //pulisco il tutto ogni volta che riparte la function
         this.email = [];
       }
     }
